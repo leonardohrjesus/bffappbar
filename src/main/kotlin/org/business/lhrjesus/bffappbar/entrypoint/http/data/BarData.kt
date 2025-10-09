@@ -9,5 +9,6 @@ data class BarData (
     val date: LocalDateTime,
     val photoUrl: String,
     val category: String,
-    val longitude : Double
+    val longitude: Double,
+    val descDate: String
 )
