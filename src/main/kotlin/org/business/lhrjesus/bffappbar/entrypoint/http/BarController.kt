@@ -15,11 +15,11 @@ import java.util.Locale
 @Tag(name = "Bares", description = "Endpoints para informações sobre bares")
 class BarController {
 
-    @GetMapping
+    @GetMapping("/list")
     @Operation(summary = "Listar todos os bares", description = "Retorna todos os dados dos bares disponíveis.")
     fun listBar(): List<BarData> {
         return listOf(
-            BarData(
+            BarData(    
                  "Vila 567 ",
                  "R. Aspicuelta, 567 - Vila Madalena",
                    -23.558163612967796,
@@ -27,7 +27,11 @@ class BarController {
                  "https://lh3.googleusercontent.com/p/AF1QipOdntTx9QXDxQtZ5tXJVOC4lCEPT5LSsV24aaE2=s1360-w1360-h1020",
                   "Sertanejo",
                 -46.69052073254774,
-                  formatDateTimeToPortuguese(LocalDateTime.now())
+                  formatDateTimeToPortuguese(LocalDateTime.now()),
+                "3.6",
+                "Balada",
+                "https://www.youtube.com/shorts/_-UClyNhMRk",
+                "https://www.instagram.com/vila567bar/?hl=pt-br"
 
 
             ),
@@ -39,7 +43,11 @@ class BarController {
                 "https://www.baressp.com.br/bares/fotos2/cervejaria-patriarca-baressp-1-min.jpg",
                 "Pagode",
                 -46.69120701252684,
-                 formatDateTimeToPortuguese(LocalDateTime.now())
+                 formatDateTimeToPortuguese(LocalDateTime.now()),
+                "4.0",
+                "Bar",
+                "https://www.youtube.com/shorts/htcZ5R_IgKE",
+                "https://www.instagram.com/patriarcabar/?hl=pt-br"
             )  ,
             BarData(
                  "Baile do Helipa",
@@ -49,7 +57,11 @@ class BarController {
                 "https://cdn.agenciamural.org.br/2024/02/05100906/helipa_baile1.png",
                 "Funk",
                 -46.589443926015846,
-                 formatDateTimeToPortuguese(LocalDateTime.now())
+                 formatDateTimeToPortuguese(LocalDateTime.now()),
+                "2.5",
+            "Rua",
+                "https://www.youtube.com/watch?v=ERBY_tpOIsU",
+                "https://www.instagram.com/bailedohelipa.ofc/"
             ),
             BarData(
                  "Festival Novabrasil 25 Anos com Seu Jorge, Alceu Valença, Nando Reis e mais",
@@ -59,7 +71,11 @@ class BarController {
                 "https://images.ticket360.com.br/images.ticket360/eventos/interna/31387-20250919175214.webp",
                 "MPB",
                 -46.732441371785626,
-                 formatDateTimeToPortuguese(LocalDateTime.now())
+                 formatDateTimeToPortuguese(LocalDateTime.now()),
+                "4.3",
+                "Festival",
+                "https://www.youtube.com/watch?v=2ldBu2CHAaE",
+                "https://www.instagram.com/festivalnovabrasil/?hl=pt-br"
             ),
             BarData(
                  "The Blue Pub",
@@ -69,7 +85,11 @@ class BarController {
                 "https://www.baressp.com.br/bares/fotos2/the-blue-pub-baressp-7.jpg",
                 "Rock",
                 -46.65040182559529,
-                 formatDateTimeToPortuguese(LocalDateTime.now())
+                 formatDateTimeToPortuguese(LocalDateTime.now()),
+                "4.2",
+                "PUB",
+                "https://www.youtube.com/watch?v=XpWl9qsnotY",
+                "https://www.instagram.com/thebluepub/"
             ),
             BarData(
                  "D-Edge",
@@ -79,7 +99,11 @@ class BarController {
                 "https://static.wixstatic.com/media/050e55_21a51abf7e4946258af5680168a0aaa4~mv2.jpg/v1/fit/w_2500,h_1330,al_c/050e55_21a51abf7e4946258af5680168a0aaa4~mv2.jpg",
                 "Eletrônica",
                 -46.66210926160029,
-                 formatDateTimeToPortuguese(LocalDateTime.now())
+                 formatDateTimeToPortuguese(LocalDateTime.now()),
+                "3.8",
+                "Balada",
+                "youtube.com/watch?v=HZsumh9DIXY&pp=ygUGRC1FZGdl",
+                "https://www.instagram.com/dedgesp/"
             ),
             BarData(
                 "Villa Country",
@@ -89,8 +113,27 @@ class BarController {
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqV9om9Tm_OpTlxLjReMWDrwLmVBwKUoOCqg&s",
                 "Sertanejo",
                 -46.67041066834576,
-                formatDateTimeToPortuguese(LocalDateTime.now())
+                formatDateTimeToPortuguese(LocalDateTime.now()),
+                "4.5",
+                "Balada",
+                "https://www.youtube.com/watch?v=UNk885LHUj0",
+                "https://www.instagram.com/villacountrybar/?hl=pt-br"
             ),
+        )
+    }
+
+    @GetMapping("/category")
+    @Operation(summary = "Listar todos os bares", description = "Retorna todos os dados dos bares disponíveis.")
+    fun listCategoty(): List<String> {
+        return listOf(
+            "Rock",
+            "Sertanejo",
+            "Pagode",
+            "Funk",
+            "MPB",
+            "Eletrônica",
+            "PUB",
+            "Rua",
         )
     }
 

@@ -10,5 +10,9 @@ data class BarData (
     val photoUrl: String,
     val category: String,
     val longitude: Double,
-    val descDate: String
+    val descDate: String,
+    val rating : String,
+    val typeEstablishment : String,
+    val videoUrl : String,
+    val linkInstagram : String
 )
