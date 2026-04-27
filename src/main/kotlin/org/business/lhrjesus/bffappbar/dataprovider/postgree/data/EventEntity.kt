@@ -6,14 +6,12 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import org.business.lhrjesus.bffappbar.entrypoint.http.data.BarData
-import org.business.lhrjesus.bffappbar.entrypoint.http.data.formatDateTimeToPortuguese
 import java.time.Instant
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "events", schema = "public")
-data class Event(
+data class EventEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,

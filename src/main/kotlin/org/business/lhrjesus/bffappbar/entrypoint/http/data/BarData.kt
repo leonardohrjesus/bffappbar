@@ -1,6 +1,6 @@
 package org.business.lhrjesus.bffappbar.entrypoint.http.data
 
-import org.business.lhrjesus.bffappbar.dataprovider.postgree.data.Event
+import org.business.lhrjesus.bffappbar.dataprovider.postgree.data.EventEntity
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -20,6 +20,26 @@ data class BarData (
         val linkInstagram : String
 )
 
+
+
+fun List<EventEntity>.toResponse(): List<BarData?> {
+    return this.map { event ->
+        BarData(
+            name = event.name!!,
+            address = event.address!!,
+            latitude = event.latitude!!,
+            date = event.dateEvent!!,
+            photoUrl = event.photoUrl!!,
+            category = event.category!!,
+            longitude = event.longitude!!,
+            descDate = formatDateTimeToPortuguese(event.dateEvent!!),
+            rating = event.rating.toString(),
+            typeEstablishment = event.typeEstablishment!!,
+            videoUrl = event.videoUrl!!,
+            linkInstagram = event.linkInstagram!!
+        )
+    }
+}
 
 
 fun formatDateTimeToPortuguese(dateTime: LocalDateTime): String {
