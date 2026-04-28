@@ -20,7 +20,6 @@ repositories {
 }
 
 dependencies {
-//	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -30,6 +29,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("org.postgresql:postgresql")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
+    implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
+
 }
 
 kotlin {
@@ -46,4 +48,9 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+
+configurations.all {
+    exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
 }

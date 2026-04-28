@@ -9,28 +9,22 @@ import java.time.LocalDateTime
 
 @Repository
 interface EventRepository : JpaRepository<EventEntity, Long> {
-    // Você pode adicionar métodos de busca customizados aqui, por exemplo:
-    fun findByCategory(category: String): List<EventEntity>
-    fun findByDateEventBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<EventEntity>
-    fun findByRatingGreaterThanEqual(rating: Double): List<EventEntity>
-    fun findByCategoryAndDateEventBetween(category: String, startDate: LocalDateTime, endDate: LocalDateTime): List<EventEntity>
-    fun findByCategoryAndRatingGreaterThanEqual(category: String, rating: Double): List<EventEntity>
-    fun findByDateEventBetweenAndRatingGreaterThanEqual(startDate: LocalDateTime, endDate: LocalDateTime, rating: Double): List<EventEntity>
-    fun findByCategoryAndDateEventBetweenAndRatingGreaterThanEqual(category: String, startDate: LocalDateTime, endDate: LocalDateTime, rating: Double): List<EventEntity>
 
-    @Query("""
-    SELECT e FROM EventEntity e
-    WHERE (:category IS NULL OR e.category = :category)
-      AND (:minRating IS NULL OR e.rating >= :minRating)
-      AND (
-            (CAST(:startDate AS timestamp) IS NULL OR e.dateEvent >= :startDate)
-        AND (CAST(:endDate AS timestamp) IS NULL OR e.dateEvent <= :endDate)
-      )
-""")
+    @Query(
+        value = """
+            SELECT *
+            FROM events e
+            WHERE (CAST(:categories AS text[]) IS NULL OR e.categories && CAST(:categories AS text[]))
+              AND (:rating IS NULL OR e.rating >= :rating)
+              AND e.date_event >= COALESCE(:startDate, e.date_event)
+              AND e.date_event <= COALESCE(:endDate, e.date_event)
+        """,
+        nativeQuery = true
+    )
     fun search(
-        @Param("category") category: String?,
+        @Param("categories") categories: Array<String>?, // Mudamos de List para Array aqui
+        @Param("rating") rating: Double?,
         @Param("startDate") startDate: LocalDateTime?,
-        @Param("endDate") endDate: LocalDateTime?,
-        @Param("minRating") minRating: Double?
+        @Param("endDate") endDate: LocalDateTime?
     ): List<EventEntity>
 }

@@ -49,7 +49,7 @@ class BarController(
             longitude = request.longitude,
             dateEvent = LocalDateTime.now(),
             photoUrl = request.photoUrl,
-            category = request.category,
+            categories = request.categories,
             rating = request.rating.toDouble(),
             typeEstablishment = request.typeEstablishment,
             videoUrl = request.videoUrl,
@@ -62,12 +62,12 @@ class BarController(
     @GetMapping("/search")
     @Operation(summary = "Buscar bares com filtros", description = "Busca bares por categoria, período de data e/ou rating mínimo. Todos os filtros são opcionais e podem ser combinados.")
     fun search(
-        @RequestParam(required = false) category: String?,
+        @RequestParam(required = false) categories: Array<String>?,
         @RequestParam(required = false) startDate: String?,
         @RequestParam(required = false) endDate: String?,
         @RequestParam(required = false) minRating: Double?
     ): List<BarData?> {
-        val events = searchEventUseCase.get(category,startDate,endDate,minRating)
+        val events = searchEventUseCase.get(categories,startDate,endDate,minRating)
         return events.toResponse()
     }
 }
