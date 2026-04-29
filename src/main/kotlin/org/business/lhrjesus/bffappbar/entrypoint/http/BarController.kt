@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.business.lhrjesus.bffappbar.dataprovider.postgree.EventRepository
 import org.business.lhrjesus.bffappbar.dataprovider.postgree.data.EventEntity
 import org.business.lhrjesus.bffappbar.domain.usecase.CreateEventUseCase
+import org.business.lhrjesus.bffappbar.domain.usecase.GetPositionUseCase
 import org.business.lhrjesus.bffappbar.domain.usecase.SearchEventUseCase
 import org.business.lhrjesus.bffappbar.entrypoint.http.data.BarData
 import org.business.lhrjesus.bffappbar.entrypoint.http.data.toResponse
@@ -22,7 +22,8 @@ import java.time.LocalDateTime
 @Tag(name = "Bares", description = "Endpoints para informações sobre bares")
 class BarController(
     private val searchEventUseCase : SearchEventUseCase,
-    private val createEventUseCase : CreateEventUseCase
+    private val createEventUseCase : CreateEventUseCase,
+    private val getPositionUseCase : GetPositionUseCase
 ) {
 
     @GetMapping("/category")
@@ -65,9 +66,22 @@ class BarController(
         @RequestParam(required = false) categories: Array<String>?,
         @RequestParam(required = false) startDate: String?,
         @RequestParam(required = false) endDate: String?,
-        @RequestParam(required = false) minRating: Double?
+        @RequestParam(required = false) minRating: Double?,
+        @RequestParam(required = false)  latitude: Double?,
+        @RequestParam(required = false) longitude: Double?,
+        @RequestParam(required = false)  state: String?,
+        @RequestParam(required = false) city: String?,
     ): List<BarData?> {
-        val events = searchEventUseCase.get(categories,startDate,endDate,minRating)
+        val events = searchEventUseCase.get(categories,startDate,endDate,minRating, latitude,longitude,state,city)
         return events.toResponse()
+    }
+
+
+    @GetMapping("/nearby")
+    fun getNearbyEvents(
+        @RequestParam lat: Double,
+        @RequestParam lon: Double
+    ): List<EventEntity> {
+        return getPositionUseCase.getNearbyEvents(lat, lon)
     }
 }

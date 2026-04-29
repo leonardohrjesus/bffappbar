@@ -17,8 +17,11 @@ data class BarData (
         val rating : String,
         val typeEstablishment : String,
         val videoUrl : String,
-        val linkInstagram : String
-)
+        val linkInstagram : String,
+        val state: String? = null,
+        val city: String? = null,
+
+        )
 
 
 
@@ -36,7 +39,9 @@ fun List<EventEntity>.toResponse(): List<BarData?> {
             rating = event.rating.toString(),
             typeEstablishment = event.typeEstablishment!!,
             videoUrl = event.videoUrl!!,
-            linkInstagram = event.linkInstagram!!
+            linkInstagram = event.linkInstagram!!,
+            state = event.state,
+            city = event.city,
         )
     }
 }

@@ -49,5 +49,10 @@ data class EventEntity(
     val videoUrl: String? = null,
 
     @Column(name = "link_instagram")
-    val linkInstagram: String? = null
+    val linkInstagram: String? = null,
+
+    val state: String? = null,
+
+    val city: String? = null,
+
 )

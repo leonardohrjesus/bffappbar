@@ -20,16 +20,20 @@ class SearchEventUseCase(
         categories: Array<String>?,
         startDate: String?,
         endDate: String?,
-        minRating: Double?
+        minRating: Double?,
+        latitude: Double?,
+        longitude: Double?,
+        state: String?,
+        city: String?
     ): List<EventEntity> {
         logger.info ("C=SearchEventUseCase m=get , stage=init  categories=$categories , startDate=$startDate , endDate=$endDate , minRating=$minRating ")
         val start = parseDate(startDate)
         val end = parseDate(endDate)
         val categoriesNormalized = normalizeCategories(categories)
-        val response = eventRepository.search(categoriesNormalized, minRating ,start, end )
-            logger.info ("C=SearchEventUseCase m=get , stage=finished response=$response")
+        val radiusInMeters = 20000.0 // 20km
+        val response = eventRepository.searchEvents(categoriesNormalized, minRating ,start, end ,latitude,longitude,radiusInMeters,state,city)
+        logger.info ("C=SearchEventUseCase m=get , stage=finished response=$response")
         return response
-
     }
 
     private fun parseDate(date: String?): LocalDateTime? {
